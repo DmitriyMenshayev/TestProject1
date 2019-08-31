@@ -160,9 +160,15 @@ import * as PIXI from 'pixi.js';
                 if (targetScene.name === "menu"){
                     //clean test one after completion. Could be done with callbacks,
                     //but because we know exactly which scene we are dealing with it is OK
-                    testOne.scene.visible = false;
-                    testTwo.scene.visible = false;
-                    testThree.scene.visible = false;
+                    if (main.currentScene === "testOne"){
+                        testOne.scene.visible = false;
+                        if (testOne.numberOfCardsMoving === 0){
+                            testOne.clear();
+                        }
+                    } else {
+                        testTwo.scene.visible = false;
+                        testThree.scene.visible = false;
+                    }
                     UI.backButton.visible = false;
                     menu.scene.visible = true;
                 } else {
@@ -193,7 +199,6 @@ import * as PIXI from 'pixi.js';
                 testOne.cards[i] = card;
                 testOne.startX += 5;
             }
-            testOne.isDeckReady = true;
             testOne.numberOfCardsMoving = 0;
             //Setup movement
             testOne.targetX = 100;
@@ -240,7 +245,6 @@ import * as PIXI from 'pixi.js';
 
             testOne.moveCards = function(): void{
                 testOne.startButton.visible = false;
-                testOne.isDeckReady = false;
 
                 let controlObject = {
                     timer: 0,
